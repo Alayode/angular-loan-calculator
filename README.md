@@ -1,5 +1,33 @@
 # AngularLoanCalculator
 
+# Calculate()
+ 
+  This script defines the calculate function called by the event handlers
+  in the HTML above. THe function reads values from <input> elements,
+  calculates loan payment information, displays the results in <span>
+  elements. It also saves the user's data, displays links to lenders, and draws
+  a chart.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
 ## Development server
