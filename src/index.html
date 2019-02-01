@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Angular Loan Calculator</title>
+    <base href="/" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      /* Styling the page with inline style element */
+
+      .output {
+        font-weight: bold;
+      }
+      #payent {
+        text-decoration: underline;
+      }
+      #graph {
+        border: solid black 1px;
+      }
+      th,
+      td {
+        vertical-align: top;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- No Angular App....yet -->
+    <!-- <app-root></app-root> -->
+
+    <style>
+      /*
+  We will use the index.html file in this angular project to build the app first next
+  we will break them down into components piece by piece until the app is working within the
+  angular app with components: !
+ */
+    </style>
+
+    <table>
+      <!-- First Row -->
+      <tr>
+        <th>Enter Loan Data:</th>
+        <td></td>
+        <th>Loan Balance, Cumulative Equity, and Interest Payments</th>
+      </tr>
+      <!--  Second Row  -->
+      <tr>
+        <td>
+          Amount of the loan ($):
+        </td>
+        <td><input id="amount" onchange="calculate();"></td>
+        <td rowspan=8>
+<!--
+   We will use the canvas element to create a graph if your interested in
+    Learning more about the canvas element and other HTML5 element
+    visit https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+  -->
+         <canvas id="graph" width="400" height="250"></canvas>
+        </td>
+      </tr>
+
+      <!-- Third Row -->
+      <tr>
+        <td>Annual Interest (%):</td>
+        <td> <input id="apr" onchange="calculate();"></td>
+      </tr>
+      <!-- Fourth Row -->
+      <tr>
+        <td> Repayment period (years): </td>
+        <td> <input id="years" onchange="calculate();"> </td>
+      </tr>
+      <!-- Fifth Row -->
+      <tr>
+        <td>
+           Zipcode (to find lenders):
+       </td>
+          <td><input id="zipcode" onchange="calculate();"></td>
+
+          <!-- Sixth Row -->
+       <tr>
+         <th> Approximate Payments: </th>
+        <td>
+          <button onclick="calculate();"></button>
+      </td>
+      </tr>
+      <!-- seventh Row -->
+    <tr>
+      <td>Monthly payment: </td>
+      <td>$<span class="output" id="payment"></span></td>
+    </tr>
+
+    <!-- Eighth Row -->
+    <tr>
+      <td>Total payment: </td>
+      <td>$<span class="output" id="total"></span></td>
+    </tr>
+
+    <tr>
+        <td>Total  interest: </td>
+        <td>$
+          <span class="output" id="totalinterest"></span>
+        </td>
+      </tr>
+
+      <!-- Ninth Row -->
+<tr>
+  <th> Sponsors: </th>
+  <td colspan="=2">
+    Apply for your loan with one of these fine lenders:
+  <div id="lenders"></div>
+</tr>
+</td>
+</tr>
+ </tr>
+      </table>
+  </body>
+</html>
+
+
+<!--
+  The rest of this JavaScript Example code in the <script> tag below
+
+         Normally, this script would go in the document
+        <head> above but it is easier to understand here,
+        after you've seen its HTML context.
+-->
+
+<script>
+"use strict" ; // Use ECMAScript 5 strict mode in browser that support it
+// For more information on this feature please visit the link below:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
+
+
+
+/**
+ * Calculate()
+ *
+ * This script defines the calculate function called by the event handlers
+ * in the HTML above. THe function reads values from <input> elements,
+ * calculates loan payment information, displays the results in <span>
+ * elements. It also saves the user's data, displays links to lenders, and draws
+ * a chart.
+ */
+
+ function calculate() {
+  // 1. Look up the input and output elements in the document
+  var amount = document.getElementById("amount");
+  var apr = document.getElementById("apr");
+  var years = document.getElementById("years");
+  var zipcode = document.getElementById("zipcode");
+  var payment = document.getElementById("payment");
+  var total = document.getElementById("total");
+  var totalInterest = document.getElementById("totalinterest");
+
+  // 2. Get the user's input from the input elements. Assume it is all valid.
+
+  // 3a. Convert interest from a percentage to a decimal,
+  var principal = parseFloat(amount.value);
+
+  // 3b. convert from an  annual rate to a monthly rate.
+  var interest =  parseFloat(apr.value) / 100 / 12;
+
+  // 3c.Convert payment period in years to the number of monthly payments.
+  var payments =  parseFloat(years.value) * 12;
+
+  // 4. Next compute the monthly payment figure.
+  // If the result is a finite number, the user's input was good and
+  //  we have menaingful results to display.
+
+  // 5.Save the user's input so we can restore it the next time they visit.
+
+  // 6. Advertise: find and display local lenders, ut ignore network errors
+
+  // 7.  Lastly, chart loan balance, and interest and equity payments.
+  //  otherwise (else) the result was not a number (NaN) or infinite,
+  // which means the input was incomplete or invalid.
+  //  Clear any previously displayed output.
+  // Erase the content of these elements
+  // With no arguments, clears the chart
+  // Save the user's input as properties of the localStorage object
+  // properties will still be there when the user visits in the
+  // future
+  // this storage feature will not work in some browsers (firefox, e.g.)
+  // Accessing the localStorage through the window object ( check if your browser supports this.)
+
+  // 8. Automatically attempt to restore input fields when the document first loads.
+
+  // if the browser supports localStorage and we have some stored data
+
+
+
+ }
+
+
+
+</script>
