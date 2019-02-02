@@ -265,7 +265,47 @@
 
       };
 
+      /** Pass the user's input to a server-side script which can (in theory) return 
+      a list of links to local lenders interested in making loans. This example
+      does not actually inclye a working implementation of such a lender-finding
+      service. But if the service existed, this function would work with it. 
+      */
 
+      function getLenders(amount, apr, years, zipcode) {
+        // If the browser does not support the XMLHttpRequest object, do nothing
+        if(!window.XMLHttpRequest) return;
+      }
+
+      // Find the element to display the list of lenders in 
+      var ad = document.getElementById("lenders");
+      if (!ad) return; // Quit if no spot for input
+
+      // Encode the user's input as query parameters in a URL
+      // user data in query string
+
+      var url = "getLenders.php" + 
+                "?amt=" + 
+                encodeURIComponent(amount) +
+                "&apr=" +
+                 encodeURIComponent(apr) +
+                 "&yrs=" +
+                 encodeURIComponent(years) +
+                 "&zip" +
+                 encodeURIComponent(zipcode);
+                
+      // Fetch the contents of that URL using the XMLHttpRequest object
+      var req = new XMLHttpRequest(); // Begin a new request
+      req.open("GET", url);  // An HTTP GET request for the url
+      req.send(null); // Send the request with no body
+      
+      /**
+       * Before returning, register an event handler function that will be called
+       *  at some later time when the HTTP server's response arrives. This kind of 
+       *  asynchronous programming is very common in client-side javasript.
+       * 
+      */
+
+    
 
 
 
