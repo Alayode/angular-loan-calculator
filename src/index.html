@@ -305,7 +305,24 @@
        * 
       */
 
-    
+    req.onreadystatechange = function() {
+      if (req.readyState == 4 && reqStatus == 200) {
+        // If we get here, we got a complete valid HTTP response
+
+        var response =  req.responseText;
+        // HTTP response as a string
+         var lenders = JSON.parse(response);
+
+         // Parse it to a JS Array then convert the array 
+         // of lender objets to a string of HTML
+         var list = "";
+         for(var i = 0; i < lenders.length; i++) {
+           list += "<li><a href= '" +lenders[i].url + "'>" +
+            lenders[i].name +
+            "</a>";
+         }
+      }
+    }
 
 
 
