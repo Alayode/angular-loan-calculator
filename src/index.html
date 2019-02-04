@@ -118,7 +118,7 @@
     try {
       // Catch any errors that occur within these curly braces
       
-      getLenders(amount.value, apr.value, years.value, zipcode.value);
+      // getLenders(amount.value, apr.value, years.value, zipcode.value);
     } catch (e) { /* And ignore those errors  */ }
 
    
@@ -228,7 +228,7 @@
       */
 
     req.onreadystatechange = function() {
-      if (req.readyState == 4 && reqStatus == 200) {
+      if (req.readyState == 4 && req.status == 200) {
         // If we get here, we got a complete valid HTTP response
 
         var response =  req.responseText;
@@ -313,11 +313,17 @@
             equity += (monthly - thisMonthsInterest); // the rest goes to equity
         }
 
-
-        g.lineTo(paymentToX(p) , amountToY(e)); // Draw line to this point
-
-
-  
+        var bal = principal;
+        g.beginPath();
+        g.moveTo(paymentToX(0), amountToY(bal));
+       
+        for (var p = 1; p <= payments; p++) {
+          // For each payment figure out how much is interest
+            var thisMonthsInterest = bal * interest;
+            bal -= (monthly - thisMonthsInterest); // the rest goes to equity
+            g.lineTo(paymentToX(p) , amountToY(bal)); // Draw line to this point
+    
+        }
 
       g.lineWidth = 3; // Use a thick line
       g.stroke(); // Draw the balance curve
