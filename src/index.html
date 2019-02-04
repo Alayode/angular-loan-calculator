@@ -311,7 +311,20 @@
           // For each payment figure out how much is interest
             var thisMonthsInterest = (principal - equity) * interest;
             equity += (monthly - thisMonthsInterest); // the rest goes to equity
-        }
+        // Down to lower right
+        g.lineTo(paymentToX(p), amountToY(equity));
+
+          }
+  
+        // Down to lower right
+        g.lineTo(paymentToX(payments), amountToY(0));
+
+        g.closePath(); // And back to start 
+        g.fillStyle = "green"; // Now use green colot
+        g.fill();  // Fill area under curve
+        g.fillText("Total Equity", 20,35); // Draw text in legend
+      
+
 
         var bal = principal;
         g.beginPath();
