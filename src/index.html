@@ -41,87 +41,8 @@
   angular app with components: !
  */
   </style>
+<app-root></app-root>
 
-  <table>
-    <!-- First Row -->
-    <tr>
-      <th>Enter Loan Data:</th>
-      <td></td>
-      <th>Loan Balance, Cumulative Equity, and Interest Payments</th>
-    </tr>
-    <!--  Second Row  -->
-    <tr>
-      <td>
-        Amount of the loan ($):
-      </td>
-      <td><input id="amount" onchange="calculate();"></td>
-      <td rowspan=8>
-        <!--
-   We will use the canvas element to create a graph if your interested in
-    Learning more about the canvas element and other HTML5 element
-    visit https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
-  -->
-        <canvas id="graph" width="400" height="250"></canvas>
-      </td>
-    </tr>
-
-    <!-- Third Row -->
-    <tr>
-      <td>Annual Interest (%):</td>
-      <td> <input id="apr" onchange="calculate();"></td>
-    </tr>
-    <!-- Fourth Row -->
-    <tr>
-      <td> Repayment period (years): </td>
-      <td> <input id="years" onchange="calculate();"> </td>
-    </tr>
-    <!-- Fifth Row -->
-    <tr>
-      <td>
-        Zipcode (to find lenders):
-      </td>
-      <td><input id="zipcode" onchange="calculate();"></td>
-
-      <!-- Sixth Row -->
-    <tr>
-      <th> Approximate Payments: </th>
-      <td>
-        <button onclick="calculate();"></button>
-      </td>
-    </tr>
-    <!-- seventh Row -->
-    <tr>
-      <td>Monthly payment: </td>
-      <td>$<span class="output" id="payment"></span></td>
-    </tr>
-
-    <!-- Eighth Row -->
-    <tr>
-      <td>Total payment: </td>
-      <td>$<span class="output" id="total"></span></td>
-    </tr>
-
-    <tr>
-      <td>Total interest: </td>
-      <td>$
-        <span class="output" id="totalinterest"></span>
-      </td>
-    </tr>
-
-    <!-- Ninth Row -->
-    <tr>
-      <th> Sponsors: </th>
-      <td colspan="=2">
-        Apply for your loan with one of these fine lenders:
-        <div id="lenders"></div>
-    </tr>
-    </td>
-    </tr>
-    </tr>
-  </table>
-</body>
-
-</html>
 
 
 <!--
@@ -184,23 +105,23 @@
       // Fill in the output fields, rounding to 2 decimal places
       payment.innerHTML = monthly.toFixed(2);
       total.innerHTML = (monthly * payments).toFixed(2);
-      totalinterest.innerHTML = ((monthly * payments) - principal) * toFixed(2);
+      totalinterest.innerHTML = ((monthly * payments) - principal).toFixed(2);
 
    
 
     // 5.Save the user's input so we can restore it the next time they visit.
-    //TODO: Create this function later
+   
     save(amount.value, apr.value, years.value, zipcode.value);
 
 
     // 6. Advertise: find and display local lenders, but ignore network errors
     try {
       // Catch any errors that occur within these curly braces
-      //TODO: Create this function later
+      
       getLenders(amount.value, apr.value, years.value, zipcode.value);
     } catch (e) { /* And ignore those errors  */ }
 
-    //TODO: Create this function later  
+   
     chart(principal, interest, monthly, payments);
   }
     else {
@@ -216,19 +137,20 @@
       // With no arguments, clears the chart
 
     
-      clearInnerHTMLText();
+      payment.innerHTML = "";
+   total.innerHTML = "";
+   totalinterest.innerHTML = "";
+    chart();
+      // clearInnerHTMLText();
     }
   }
 
-  // clear() function
-  // amount , apr, years,zipcode, total,totalInterest
-   function clear(total, payment, totalInterest) {
-     // clear these text value by adding a empty string "" 
-   payment.innerHTML = "";
-   total.innerHTML = "";
-   totalinterest.innerHTML = "";
-
-   }
+  // // clear() function
+  // // amount , apr, years,zipcode, total,totalInterest
+  //  function clear(total, payment, totalInterest) {
+  //    // clear these text value by adding a empty string "" 
+  
+  //  }
 
 
 
@@ -274,7 +196,7 @@
       function getLenders(amount, apr, years, zipcode) {
         // If the browser does not support the XMLHttpRequest object, do nothing
         if(!window.XMLHttpRequest) return;
-      }
+      
 
       // Find the element to display the list of lenders in 
       var ad = document.getElementById("lenders");
@@ -326,10 +248,118 @@
 
          ad.innerHTML = "<ul>" + list + "</ul>";
 
-         
+        }  
       }
     }
 
+    // Chart monthly loan balance, interest and equity in an HTML <canvas> element.
+      // If called with no arguments then just erase any previously drawn chart.
 
+      function chart(principal, interest, monthly,payments) {
+        var graph = document.getElementById("graph");
+        // Get the <canvas> tag 
+          graph.width = graph.width; // a fun way to clear and reset the cancas element
+      
+      // If we're called with no arguments, or if this browser does not support
+      // graphics in a <canvas> element, then just return now.
+        if (arguments.length == 0 || !graph.getContext) return;
+        
+      // Get the "context" object for the <canvas> defines the drawing API
+        var g = graph.getContext("2d"); // All drawing is done with this object 
+        var width = graph.width, height = graph.height; // get canvas size.
+
+        // These functions convert payment numbers and dollar amounts to pixels.
+
+        function paymentToX(n) {
+          return n * width / payments;
+        }
+
+        function amountToY(a) {
+          return height - (a * height/ (monthly * payments * 1.05))
+        }
+      
+      // Payments are a straight line from (0,0) to (payments, monthly * payments)
+        g.moveTo(paymentToX(0), amountToY(0));   
+        // Start at lower left
+
+
+
+        g.lineTo(paymentToX(payments),  amountToY(monthly * payments)); 
+        
+        // Draw to upper right
+      
+        
+        // Down to lower right
+        g.lineTo(paymentToX(payments), amountToY(0));
+
+        g.closePath(); // And back to start 
+        g.fillStyle = "#f88"; // Light red
+
+        g.fill();  // Fill the Triangle
+        
+        g.font = "bold 12px sans-serif"; // Define a font
+      
+        g.fillText("Total Interest Payments", 20,20); // Draw text in legend
+      
+        // Cumulative equity is non-linear and tricket to chart 
+        var equity = 0;
+        g.beginPath(); // Begin a new shape
+
+        g.moveTo(paymentToX(0), amountToY(0)); // starting at lower-left
+
+        for (var p = 1; p <= payments; p++) {
+          // For each payment figure out how much is interest
+            var thisMonthsInterest = (principal - equity) * interest;
+            equity += (monthly - thisMonthsInterest); // the rest goes to equity
+        }
+
+
+        g.lineTo(paymentToX(p) , amountToY(e)); // Draw line to this point
+
+
+  
+
+      g.lineWidth = 3; // Use a thick line
+      g.stroke(); // Draw the balance curve
+      g.fillStyle = "black"; // Switch to back text
+      g.fillText("Loan Balance", 20,50); // Legend entry
+      /**
+       * Now make yearly tick marks anad year numbers on X axis
+       * 
+      */
+
+      g.textAlign = "center"; // Center tet over ticks
+      var y = amountToY(0); // Y coordinate of X axis
+
+      for (var year = 1; year * 12 <= payments; year++) { // For each othe 2 points
+          var x = paymentToX(year * 12); // Compute the tick mark
+          g.fillRect(x - 0.5, y-3, 1,3) // Coordinates of the Rectangle draw the tick
+
+              // Label the axis
+              if( year == 1) g.fillText("Year", x ,y-5);
+              // Number every 5years
+              if( year % 5 == 0 && year * 12 !== payments) g.fillText("Year", x ,y-5); 
+               g.fillText(String(year), x, y-5);
+              
+      }
+
+
+      // Mark payment amounts along the right edge
+      g.textAlign = "right";
+      g.textBaseline = "middle";
+
+      var ticks = [monthly * payments, principal];
+      var rightEdge = paymentToX(payments);
+
+for(var i = 0; i < ticks.length; i++) {
+  var y = amountToY(ticks[i]);
+  g.fillRect(rightEdge - 3, y-0, 3,1);
+  g.fillText(String(ticks[i].toFixed(0)) , 
+    rightEdge - 5 , y); // and label it
+}
+
+} // End Chart() function  
 
 </script>
+</body>
+</html>
