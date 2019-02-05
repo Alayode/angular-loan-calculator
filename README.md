@@ -8,6 +8,34 @@
   elements. It also saves the user's data, displays links to lenders, and draws
   a chart.
 
+# Core JavaScript
+
+This project is to cover a number of topics that will help you understand JavaScript and its
+quirkyness.
+
+# Lexical Structure
+# Types, Values, and Variables
+# Expressions and Operators
+# Statements
+# Objects
+# Arrays
+
+JavaScript Arrays
+
+An array is an ordered collection of values. Each Value is called an element, and each element handlersa numeric position in the array, known as its index. Javascript arrays are untyped: an array element mayb be of any type, and different elements of the same array may be of different types. Array elements may even be objects or other arrays, which allows you to create complex datastructures, such as array of objects and arrays of arrays. JavaScript arrays are zero-based and use 32-bit indexes: the index of the first element is 0, and the highest possible inex is 4294967294(2^32-2), for a maximum array size of 4,294,967,295 elements.
+
+JavaScript arrays are dynamic: they grow or shrink as needed and there is no need to declare a fixed size for the array when you create it or to reallocate it when the size changes.
+
+JavaScript arrays may be sparse: the elements need not have contiguous indexes and there may be gaps. 
+
+# EVERY JavaScript ARRAY HAS A LENGTH PROPERTY.
+
+
+# Functions
+# Classes and Modules
+# Pattern Matching with Regular Expressions
+# Javascipt Subsets and Extensions
+# Server-Side JavaScript
 
 
 
