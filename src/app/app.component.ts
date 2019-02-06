@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, InjectionToken, ViewChild, ElementRef } from '@angular/core';
 
+const DOCUMENT: InjectionToken<Document>;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,12 +8,20 @@ import { Component, Input } from '@angular/core';
 })
 export class AppComponent {
 
-      enterLoanData = 'Enter Loan Data:';
+     @ViewChild('amount') amount: ElementRef; // const amount = document.getElementById("amount");
+     @ViewChild('apr') apr: ElementRef; // const apr = document.getElementById("apr");
+     @ViewChild('zipcode') zipcode: ElementRef; // const zipcode = document.getElementById("zipcode");
+     @ViewChild('years') years: ElementRef; // const years = document.getElementById("years");
+     @ViewChild('payment') payment: ElementRef; // const payment = document.getElementById("payment");
+     @ViewChild('total') total: ElementRef; // const total = document.getElementById("total");
+     @ViewChild('totalInterest') totalInterest: ElementRef; // const totalInterest = document.getElementById("totalinterest");
+
+     enterLoanData = 'Enter Loan Data:';
       calculatorTitle = 'Loan Balance, Cumulative Equity, and Interest Payments';
       loanAmount = 'Amount of the loan ($):';
       annualInterest = 'Annual Interest (%):';
       repaymentPeriodInYears = 'Repayment period (years):';
-      zipcode = ' Zipcode (to find lenders):';
+      zip = ' Zipcode (to find lenders):';
       monthlyPayment = 'Monthly payment:';
       currencySymbol = '$';
       approximatePayments = 'Approximate Payment';
@@ -26,33 +35,26 @@ export class AppComponent {
     calculate() {
 
     // 1. Look up the input and output elements in the document
-    var amount = document.getElementById("amount");
-    var apr = document.getElementById("apr");
-    var years = document.getElementById("years");
-    var zipcode = document.getElementById("zipcode");
-    var payment = document.getElementById("payment");
-    var total = document.getElementById("total");
-    var totalInterest = document.getElementById("totalinterest");
 
-    
+
     // 2. Get the user's input from the input elements. Assume it is all valid.
 
     // 3a. Convert interest from a percentage to a decimal,
-    var principal = parseFloat(amount.value);
+    const principal = parseFloat(amount.value);
 
     // 3b. convert from an  annual rate to a monthly rate.
-    var interest = parseFloat(apr.value) / 100 / 12;
+    const interest = parseFloat(apr.value) / 100 / 12;
 
     // 3c.Convert payment period in years to the number of monthly payments.
-    var payments = parseFloat(years.value) * 12;
+    const payments = parseFloat(years.value) * 12;
 
     // 4. Next compute the monthly payment figure.
     // If the result is   a finite number, the user's input was good and
     //  we have menaingful results to display.
 
     // mpf Monthly Payment Figure
-    var mpf = Math.pow(1 + interest, payments);
-    var monthly = (principal * mpf * interest) / (mpf - 1);
+    const mpf = Math.pow(1 + interest, payments);
+    const monthly = (principal * mpf * interest) / (mpf - 1);
 
     if (isFinite(monthly)) {
 
@@ -80,12 +82,12 @@ export class AppComponent {
   }
     else {
       // Result was Not-a-Number or infinite, 
-      // which menans the input was incomplete or invalid.
+      // which menans the input was incompconste or invalid.
       // Clear any previously displayed output.
 
       // 7.  Lastly, chart loan balance, and interest and equity payments.
       //  otherwise (else) the result was not a number (NaN) or infinite,
-      // which means the input was incomplete or invalid.
+      // which means the input was incompconste or invalid.
       //  Clear any previously displayed output.
       // Erase the content of these elements
       // With no arguments, clears the chart
