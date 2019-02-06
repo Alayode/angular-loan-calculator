@@ -16,7 +16,7 @@ export class AppComponent {
       currencySymbol = '$';
       approximatePayments = 'Approximate Payment';
       totalPayment = 'Total Payment: ';
-      totalInterest = 'Total interest: ';
+      totalinterest = 'Total interest: ';
       sponsors = 'Sponsors: ';
       lendersText = 'Apply for your loan with one of these fine lenders: ';
       calculate = 'Calculate';
