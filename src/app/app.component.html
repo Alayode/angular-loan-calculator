@@ -50,7 +50,7 @@
       <td>
         {{loanAmount}}
       </td>
-      <td><input id="amount" onchange="calculate();"></td>
+      <td><input id="amount" onchange="vanillaCalculate();"></td>
       <td rowspan=8>
         <canvas id="graph" width="400" height="250"></canvas>
       </td>
@@ -58,22 +58,22 @@
 
     <tr>
       <td>{{annualInterest}}}</td>
-      <td> <input id="apr" onchange="calculate();"></td>
+      <td> <input id="apr" onchange="vanillaCalculate();"></td>
     </tr>
     <tr>
       <td> {{repaymentPeriodInYears}} </td>
-      <td> <input id="years" onchange="calculate();"> </td>
+      <td> <input id="years" onchange="vanillaCalculate();"> </td>
     </tr>
     <tr>
       <td>
       {{zipcode}}
       </td>
-      <td><input id="zipcode" onchange="calculate();"></td>
+      <td><input id="zipcode" onchange="vanillaCalculate();"></td>
 
     <tr>
       <th> {{ approximatePayments}} </th>
       <td>
-        <button (click)='think();'>{{calculatorButton}}</button>
+        <button (click)='calculate();'>{{calculatorButton}}</button>
       </td>
     </tr>
     <tr>
