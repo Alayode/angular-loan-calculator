@@ -45,7 +45,25 @@ export class AppComponent {
     valueAnnualPercentageRate,
     valueYears,
     valueZipcode
-  ) { }
+  ) {
+    // After adding a windowService to our Component
+    // We can call the localStorage method using Typescript
+    if (this._window.localStorage) {
+      localStorage.loan_amount = valueAmount;
+      localStorage.loan_apr = valueAnnualPercentageRate;
+      localStorage.loan_years = valueYears;
+      localStorage.loan_zipcode = valueZipcode;
+
+    }
+
+
+      this._window.onload = function() {
+        // Automatically attempt to restore input fields when the document first loads.
+      // if the browser supports localStorage and we have some stored data
+
+      // if the browser supports localStorage and we have some stored data
+    };
+  }
 
 
   chart(p, m, mthly, u) { }
