@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 
 export interface ICustomWindow extends Window {
   __custom_global_stuff: string;
+  xhr: XMLHttpRequest;
 }
 
 function getWindow(): any {
