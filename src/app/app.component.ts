@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 const PERCENT_VALUE = 100;
 const totalMonthsInYear = 12;
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -102,4 +103,26 @@ export class AppComponent {
     }
   }
 
+  getLenders(amount, apr, years, zipcode) {
+     /** Pass the user's input to a server-side script which can (in theory) return 
+      a list of links to local lenders interested in making loans. This example
+      does not actually inclye a working implementation of such a lender-finding
+      service. But if the service existed, this function would work with it. 
+      */
+
+         // If the browser does not support the XMLHttpRequest object, do nothing
+         if(!window.XMLHttpRequest)
+         
+         {
+           return;
+         }
+
+         // Find the element to display the list of lenders in 
+         var ad = document.getElementById("lenders");
+         if (!ad) return; // Quit if no spot for input
+   
+         // Encode the user's input as query parameters in a URL
+         // user data in query string
+   
+  }
 }
