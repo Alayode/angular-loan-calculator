@@ -8,6 +8,17 @@ const DOCUMENT: InjectionToken<Document>;
 })
 export class AppComponent {
 
+<<<<<<< HEAD
+=======
+     @ViewChild('amount') amount: ElementRef; // const amount = document.getElementById("amount");
+     @ViewChild('apr') apr: ElementRef; // const apr = document.getElementById("apr");
+     @ViewChild('zipcode') zipcode: ElementRef; // const zipcode = document.getElementById("zipcode");
+     @ViewChild('years') years: ElementRef; // const years = document.getElementById("years");
+     @ViewChild('payment') payment: ElementRef; // const payment = document.getElementById("payment");
+     @ViewChild('total') total: ElementRef; // const total = document.getElementById("total");
+     @ViewChild('totalInterest') totalInterest: ElementRef; // const totalInterest = document.getElementById("totalinterest");
+
+>>>>>>> 8e12013fdd9a3dc78aafa811c6fd9dcaceb63ae5
      enterLoanData = 'Enter Loan Data:';
       calculatorTitle = 'Loan Balance, Cumulative Equity, and Interest Payments';
       loanAmount = 'Amount of the loan ($):';
