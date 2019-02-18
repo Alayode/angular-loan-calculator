@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 
+
+// From Stackoverflow
+// https://stackoverflow.com/questions/34177221/angular2-how-to-inject-window-into-an-angular2-service
+import { WindowReferenceService, ICustomWindow } from '../app/window-reference.service';
+
 const PERCENT_VALUE = 100;
 const totalMonthsInYear = 12;
+
 
 
 @Component({
@@ -10,6 +16,8 @@ const totalMonthsInYear = 12;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+
   enterLoanData = 'Enter Loan Data:';
   calculatorTitle = 'Loan Balance, Cumulative Equity, and Interest Payments';
   loanAmount = 'Amount of the loan ($):';
@@ -25,6 +33,13 @@ export class AppComponent {
   lendersText = 'Apply for your loan with one of these fine lenders: ';
   calculatorButton = 'Calculate';
 
+  private _window: ICustomWindow;
+
+  constructor(
+    windowRef: WindowReferenceService
+  ) {
+    this._window = windowRef.nativeWindow;
+  }
 
   save(valueAmount,
     valueAnnualPercentageRate,
